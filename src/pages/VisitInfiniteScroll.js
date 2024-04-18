@@ -1,4 +1,7 @@
 /* eslint-disable */ 
+import { IconButton } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react"; 
 import InfiniteScroll from "react-infinite-scroller";
@@ -85,8 +88,11 @@ function VisitInfiniteScroll(){
        
         if(confirm("정말 삭제 하시겠습니까?")==false)return;
        
-        //alert(e.target.id + " : delete");
+        //console.log(e);
+
+        alert(e.target.id + " : delete");
         const idx = e.target.id;
+
        // axios.defaults.withCredentials = true;
         axios.delete('https://3.35.18.174.nip.io/demo_visit/rest/visit/' + idx)
               .then((res)=>{
@@ -118,7 +124,20 @@ function VisitInfiniteScroll(){
             { data &&
               data.map((v, index) => (
               <div key={index} style={{ border: '1px solid black', margin: '10px', padding: '20px', boxShadow:'1px 1px 3px black' }}>
-                 <p style={{textAlign:'left',color:'black',fontWeight:'bold'}}>♥ {v.name}</p>
+                 <div className="flex flex-row">
+                    <span style={{display:'inline-block',width:'80%',textAlign:'left',color:'black',fontWeight:'bold'}} >
+                        ♥ {v.name}
+                        
+                    </span>
+                    <span  style={{display:'inline-block',width:'20%',textAlign:'right'}}>
+                        <IconButton aria-label="delete" id={v.idx}  onClick={ deleteVisit }>
+                          <DeleteIcon />
+                        </IconButton>
+                    </span>
+                
+                    
+                
+                 </div>
                  <p style={{textAlign:'left',color:'gray',whiteSpace:'pre-wrap'}}>{v.content.replaceAll('<br>','\n')}</p>
                  <p style={{textAlign:'left',color:'#ccc'}}>{v.regdate}</p>
               </div>

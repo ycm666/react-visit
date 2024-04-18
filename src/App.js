@@ -1,4 +1,7 @@
 import './App.css';
+
+import './css/main.css'
+
 import VisitInfiniteScroll from './pages/VisitInfiniteScroll';
 
 function App() {
@@ -7,7 +10,7 @@ function App() {
     // jsx  :  className
 
     <div className="App MyColor">
-      <h2>:::: 방명록 ::::</h2>  
+      <h2 className='title'>:::: 방명록 ::::</h2>  
       <hr></hr>
       
       <VisitInfiniteScroll />
