@@ -46,7 +46,7 @@ function VisitInfiniteScroll(){
     function getData(){
          //console.log("---getData()---");
          //axios.defaults.withCredentials = true;
-         const url = 'https://3.35.18.174.nip.io/demo_visit/rest/visits/' + count.current ;
+         const url = 'https://3.35.18.174.nip.io/rest/visits/' + count.current ;
          //const url = 'http://192.168.0.49:8080/rest/visits/' + count.current;
          axios.get(url)
               .then((res)=>{
@@ -73,7 +73,7 @@ function VisitInfiniteScroll(){
 
     function addVisit(){
        // axios.defaults.withCredentials = true;
-        axios.post('https://3.35.18.174.nip.io/demo_visit/rest/visit',visit)
+        axios.post('https://3.35.18.174.nip.io/rest/visit',visit)
         .then((res)=>{
           getData(0);
           //화면 초기화
@@ -94,7 +94,7 @@ function VisitInfiniteScroll(){
         const idx = e.target.id;
 
        // axios.defaults.withCredentials = true;
-        axios.delete('https://3.35.18.174.nip.io/demo_visit/rest/visit/' + idx)
+        axios.delete('https://3.35.18.174.nip.io/rest/visit/' + idx)
               .then((res)=>{
                 getData();
               })
