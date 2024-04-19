@@ -6,7 +6,9 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react"; 
 import InfiniteScroll from "react-infinite-scroller";
 
+
 // import 'bootstrap/dist/css/bootstrap.min.css'
+
 
 function VisitInfiniteScroll(){ 
 
@@ -14,7 +16,7 @@ function VisitInfiniteScroll(){
     
     
     const total_count = useRef(0);
-    const count = useRef(5);
+    const count = useRef(3);
     const isLast = useRef(false);
 
     
@@ -29,7 +31,7 @@ function VisitInfiniteScroll(){
     
     const handleLoadMore = () => {
       //console.log("---handleLoadMore()---");
-      count.current = count.current + 5;
+      count.current = count.current + 3;
 
       if (count.current>=total_count.current) { // 
         isLast.current = true;// setLast(true); // true로 바꿔주자.
@@ -84,14 +86,14 @@ function VisitInfiniteScroll(){
         });  
     }
 
-    function deleteVisit(e){
+    function deleteVisit(idx){
        
         if(confirm("정말 삭제 하시겠습니까?")==false)return;
        
-        //console.log(e);
+        console.log(idx);
 
-        alert(e.target.id + " : delete");
-        const idx = e.target.id;
+        //alert(idx + " : delete");
+        //const idx = e.target.id;
 
        // axios.defaults.withCredentials = true;
         axios.delete('https://3.35.18.174.nip.io/demo_visit/rest/visit/' + idx)
@@ -110,7 +112,9 @@ function VisitInfiniteScroll(){
        //console.log(data);
     },[]);
 
-    
+    const scrollToTop = () => {
+      window.scrollTo(0, 0);
+    };
 
     return ( 
       <InfiniteScroll
@@ -130,9 +134,9 @@ function VisitInfiniteScroll(){
                         
                     </span>
                     <span  style={{display:'inline-block',width:'20%',textAlign:'right'}}>
-                        <IconButton aria-label="delete" id={v.idx}  onClick={ deleteVisit }>
-                          <DeleteIcon />
-                        </IconButton>
+                    <IconButton aria-label="delete" id={v.idx} onClick={() => deleteVisit(v.idx)}>
+                      <DeleteIcon />
+                    </IconButton>
                     </span>
                 
                     
@@ -144,11 +148,21 @@ function VisitInfiniteScroll(){
             ))}
 
             {!isLast.current && (
-              <button
+              <button 
                 onClick={handleLoadMore}
-                className="flex justify-center items-center h-10 w-full"
+                className="btn btn-success mybtn"
               >
                 더보기...
+              </button>
+            )}
+
+              
+            { isLast.current && (
+                <button
+                onClick={ scrollToTop }
+                className="btn btn-success mybtn"
+              >
+                맨위로...
               </button>
             )}
 
